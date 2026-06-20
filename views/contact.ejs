@@ -1,0 +1,46 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+<main id="main">
+  <%- include('partials/page-hero', { heroLabel: 'Contact', heroTitle: 'Contact Here', heroImage: '1522-featured-image.png' }) %>
+
+  <section class="section">
+    <div class="container">
+      <div class="contact-cards">
+        <article class="contact-card">
+          <span class="contact-card__icon"><%- include('partials/icon', { name: 'mail' }) %></span>
+          <h2>Email Address</h2>
+          <a href="mailto:<%= site.email %>"><%= site.email %></a>
+        </article>
+        <article class="contact-card">
+          <span class="contact-card__icon"><%- include('partials/icon', { name: 'pin' }) %></span>
+          <h2>Office Location</h2>
+          <p><%= site.location %></p>
+        </article>
+        <article class="contact-card">
+          <span class="contact-card__icon"><%- include('partials/icon', { name: 'phone' }) %></span>
+          <h2>Phone Number</h2>
+          <a href="tel:<%= site.phoneHref %>"><%= site.phone %></a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--muted">
+    <div class="container container--narrow">
+      <div class="section__head">
+        <p class="eyebrow">Get In Touch</p>
+        <h2>Book Your Appointment</h2>
+        <p class="section__lead">Send us your details and the service you're interested in — we'll be in touch to confirm.</p>
+      </div>
+      <%- include('partials/booking-form', { services: services, sent: sent }) %>
+    </div>
+  </section>
+
+  <section class="map-section" aria-label="Map of our location">
+    <iframe
+      title="Map showing Falconridge, Calgary, Alberta"
+      src="https://www.google.com/maps?q=Falconridge,Calgary,Alberta&output=embed"
+      width="100%" height="420" style="border:0" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </section>
+</main>
+<%- include('partials/footer') %>

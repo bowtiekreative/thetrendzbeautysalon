@@ -1,0 +1,45 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+<main id="main">
+  <%- include('partials/page-hero', { heroLabel: 'Service', heroTitle: service.title, heroImage: service.image }) %>
+
+  <section class="section">
+    <div class="container detail">
+      <div class="detail__main">
+        <div class="detail__media">
+          <img src="<%= img(service.image) %>" alt="<%= service.title %>" loading="lazy">
+        </div>
+        <div class="prose">
+          <% service.content.split(/\n\n+/).forEach(function(p){ if(p.trim()){ %><p><%= p.trim() %></p><% } }); %>
+        </div>
+        <div class="detail__actions">
+          <a class="btn btn--primary" href="/contact?service=<%= encodeURIComponent(service.title) %>">Book This Service</a>
+          <a class="btn btn--outline" href="/pricing">View Pricing</a>
+        </div>
+      </div>
+
+      <aside class="detail__side">
+        <div class="side-card">
+          <h2 class="side-card__h">Book an Appointment</h2>
+          <% if (service.priceFrom) { %><p class="side-card__price">From <strong><%= service.priceFrom %></strong></p><% } %>
+          <p>Call us or send a message to reserve your spot. A $25 deposit secures your booking.</p>
+          <a class="btn btn--primary btn--block" href="/contact">Get In Touch</a>
+          <a class="btn btn--ghost-dark btn--block" href="tel:<%= site.phoneHref %>"><%= site.phone %></a>
+        </div>
+        <% if (related && related.length) { %>
+        <div class="side-card">
+          <h2 class="side-card__h">Other Services</h2>
+          <ul class="side-links">
+            <% related.forEach(function(r){ %>
+              <li><a href="/services/<%= r.slug %>"><%- include('partials/icon', { name: 'arrow' }) %><%= r.title %></a></li>
+            <% }); %>
+          </ul>
+        </div>
+        <% } %>
+      </aside>
+    </div>
+  </section>
+
+  <%- include('partials/cta') %>
+</main>
+<%- include('partials/footer') %>

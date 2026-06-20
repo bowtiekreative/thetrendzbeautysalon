@@ -1,0 +1,59 @@
+  <footer class="site-footer">
+    <div class="container footer__grid">
+      <div class="footer__col footer__brand">
+        <a class="brand brand--footer" href="/">
+          <img class="brand__mark" src="<%= img(site.logoMark) %>" alt="" width="48" height="48">
+          <span class="brand__text"><span class="brand__name">Trendz</span><span class="brand__sub">Beauty Salon</span></span>
+        </a>
+        <p>Revitalise your mind, body and spirit. Calgary's one-stop beauty &amp; wellness destination.</p>
+        <span class="footer__social">
+          <a href="<%= site.social.facebook %>" aria-label="Facebook" target="_blank" rel="noopener"><%- include('icon', { name: 'facebook' }) %></a>
+          <a href="<%= site.social.instagram %>" aria-label="Instagram" target="_blank" rel="noopener"><%- include('icon', { name: 'instagram' }) %></a>
+        </span>
+      </div>
+
+      <div class="footer__col">
+        <h2 class="footer__h">Explore</h2>
+        <ul>
+          <li><a href="/about">About</a></li>
+          <li><a href="/services">Services</a></li>
+          <li><a href="/pricing">Pricing</a></li>
+          <li><a href="/courses">Courses</a></li>
+          <li><a href="/reviews">Reviews</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <h2 class="footer__h">Information</h2>
+        <ul>
+          <li><a href="/before-after-care">Before &amp; After Care</a></li>
+          <li><a href="/offers">Offers</a></li>
+          <li><a href="/contact">Contact</a></li>
+          <li><a href="/booking-policy">Booking Policy</a></li>
+          <li><a href="/privacy-policy">Privacy Policy</a></li>
+          <li><a href="/terms">Terms of Service</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <h2 class="footer__h">Get In Touch</h2>
+        <ul class="footer__contact">
+          <li><a href="tel:<%= site.phoneHref %>"><%- include('icon', { name: 'phone' }) %><%= site.phone %></a></li>
+          <li><a href="mailto:<%= site.email %>"><%- include('icon', { name: 'mail' }) %><%= site.email %></a></li>
+          <li><span><%- include('icon', { name: 'pin' }) %><%= site.location %></span></li>
+        </ul>
+        <a class="btn btn--primary footer__book" href="/contact">Book an Appointment</a>
+      </div>
+    </div>
+
+    <div class="footer__bar">
+      <div class="container footer__bar-inner">
+        <p>&copy; <%= year %> <%= site.name %>. All rights reserved.</p>
+        <p>Falconridge, Calgary, Alberta</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="<%= asset('js/main.js') %>" defer></script>
+</body>
+</html>

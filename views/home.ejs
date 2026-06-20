@@ -1,0 +1,155 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+<main id="main">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero__slider" data-slider data-autoplay="6000" aria-roledescription="carousel" aria-label="Salon highlights">
+      <% home.heroImages.forEach(function(im, i){ %>
+        <div class="hero__slide<%= i === 0 ? ' is-active' : '' %>" style="background-image:url('<%= img(im) %>')" role="group" aria-roledescription="slide" aria-hidden="<%= i === 0 ? 'false' : 'true' %>"></div>
+      <% }); %>
+      <div class="hero__overlay"></div>
+    </div>
+
+    <div class="container hero__content">
+      <p class="eyebrow eyebrow--light"><%= home.heroLabel %></p>
+      <h1 class="hero__title"><%= home.heroHeading %></h1>
+      <p class="hero__sub"><%= home.heroSub %></p>
+      <div class="hero__actions">
+        <a class="btn btn--primary btn--lg" href="/contact">Book Now</a>
+        <a class="btn btn--ghost btn--lg" href="/services">Our Services</a>
+      </div>
+    </div>
+
+    <div class="hero__controls">
+      <button class="slider__btn" data-slider-prev aria-label="Previous slide">&#8249;</button>
+      <button class="slider__pause" data-slider-pause aria-label="Pause slideshow" aria-pressed="false">&#10073;&#10073;</button>
+      <button class="slider__btn" data-slider-next aria-label="Next slide">&#8250;</button>
+    </div>
+  </section>
+
+  <!-- Intro / Indulge in luxury -->
+  <section class="section">
+    <div class="container split">
+      <div class="split__media">
+        <div class="framed">
+          <img src="<%= img('178-slider-03.jpg') %>" alt="A relaxing spa treatment at The Trendz Beauty Salon" loading="lazy">
+        </div>
+      </div>
+      <div class="split__body">
+        <p class="eyebrow"><%= home.introLabel %></p>
+        <h2><%= home.introHeading %></h2>
+        <p><%= home.introBody %></p>
+        <a class="btn btn--primary" href="/about">Read More</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Transform yourself (dark) -->
+  <section class="section section--dark transform" style="--t-bg:url('<%= img('337-about-2.png') %>')">
+    <div class="transform__overlay"></div>
+    <div class="container transform__inner">
+      <div class="transform__body">
+        <p class="eyebrow eyebrow--light">The Trendz Experience</p>
+        <h2><%= home.transformHeading %></h2>
+        <p><%= home.transformBody %></p>
+        <a class="btn btn--primary" href="/services">Explore Services</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="section">
+    <div class="container">
+      <div class="section__head">
+        <p class="eyebrow">Why Choose Us</p>
+        <h2>The Trendz Difference</h2>
+      </div>
+      <div class="features">
+        <% home.features.forEach(function(f){ %>
+          <article class="feature">
+            <span class="feature__icon"><%- include('partials/icon', { name: f.icon }) %></span>
+            <h3><%= f.title %></h3>
+            <p><%= f.text %></p>
+          </article>
+        <% }); %>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services preview -->
+  <section class="section section--muted">
+    <div class="container">
+      <div class="section__head">
+        <p class="eyebrow">Services</p>
+        <h2>Revitalize &amp; Rejuvenate</h2>
+        <p class="section__lead">A full menu of beauty and body treatments, each tailored to you.</p>
+      </div>
+      <div class="cards">
+        <% services.forEach(function(s){ %>
+          <article class="card">
+            <a class="card__media" href="/services/<%= s.slug %>">
+              <img src="<%= img(s.image) %>" alt="<%= s.title %>" loading="lazy">
+            </a>
+            <div class="card__body">
+              <h3><a href="/services/<%= s.slug %>"><%= s.title %></a></h3>
+              <p><%= s.excerpt %></p>
+              <a class="link-arrow" href="/services/<%= s.slug %>">Read More <%- include('partials/icon', { name: 'arrow' }) %></a>
+            </div>
+          </article>
+        <% }); %>
+      </div>
+      <div class="section__foot">
+        <a class="btn btn--outline" href="/services">View All Services</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="section">
+    <div class="container">
+      <div class="section__head">
+        <p class="eyebrow">Reviews</p>
+        <h2>Glowing Testimonials</h2>
+      </div>
+      <div class="testi-slider" data-slider data-autoplay="7000" aria-label="Client testimonials">
+        <% testimonials.forEach(function(t, i){ %>
+          <figure class="testi<%= i === 0 ? ' is-active' : '' %>" aria-hidden="<%= i === 0 ? 'false' : 'true' %>">
+            <span class="testi__quote"><%- include('partials/icon', { name: 'quote' }) %></span>
+            <blockquote><p><%= t.text %></p></blockquote>
+            <figcaption><strong><%= t.name %></strong><% if (t.service) { %><span><%= t.service %></span><% } %></figcaption>
+          </figure>
+        <% }); %>
+        <div class="testi-slider__controls">
+          <button class="slider__btn" data-slider-prev aria-label="Previous review">&#8249;</button>
+          <button class="slider__pause" data-slider-pause aria-label="Pause testimonials" aria-pressed="false">&#10073;&#10073;</button>
+          <button class="slider__btn" data-slider-next aria-label="Next review">&#8250;</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section section--muted">
+    <div class="container container--narrow">
+      <div class="section__head">
+        <p class="eyebrow">FAQ</p>
+        <h2>Frequently Asked Questions</h2>
+      </div>
+      <div class="faq">
+        <% faqs.forEach(function(f, i){ %>
+          <div class="faq__item">
+            <button class="faq__q" aria-expanded="false" aria-controls="faq-<%= i %>">
+              <span><%= f.q %></span>
+              <span class="faq__toggle" aria-hidden="true">+</span>
+            </button>
+            <div class="faq__a" id="faq-<%= i %>" hidden><p><%= f.a %></p></div>
+          </div>
+        <% }); %>
+      </div>
+    </div>
+  </section>
+
+  <%- include('partials/cta', { ctaHeading: home.ctaHeading, ctaImage: home.ctaImage }) %>
+</main>
+<%- include('partials/footer') %>

@@ -1,0 +1,17 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+<main id="main">
+  <section class="section section--tall">
+    <div class="container container--narrow center">
+      <p class="eyebrow">Oops</p>
+      <h1 class="error-code"><%= typeof error !== 'undefined' && error ? '500' : '404' %></h1>
+      <h2><%= typeof error !== 'undefined' && error ? 'Something went wrong' : 'Page not found' %></h2>
+      <p class="lead">The page you're looking for isn't here. Let's get you back to feeling beautiful.</p>
+      <div class="hero__actions center">
+        <a class="btn btn--primary btn--lg" href="/">Back Home</a>
+        <a class="btn btn--outline btn--lg" href="/services">Our Services</a>
+      </div>
+    </div>
+  </section>
+</main>
+<%- include('partials/footer') %>

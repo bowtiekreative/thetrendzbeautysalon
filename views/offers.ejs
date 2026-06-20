@@ -1,0 +1,25 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+<main id="main">
+  <%- include('partials/page-hero', { heroLabel: 'Offers', heroTitle: offers.heading, heroImage: '1436-digitalstemcell_fitness_yogaa_fit_diverse_model_standing_upr.png' }) %>
+
+  <section class="section">
+    <div class="container container--narrow center">
+      <p class="eyebrow">Special Promotions</p>
+      <h2>Exclusive Offers</h2>
+      <p class="lead"><%= offers.intro %></p>
+      <div class="offer-callout">
+        <span class="offer-callout__icon"><%- include('partials/icon', { name: 'sparkle' }) %></span>
+        <h3>Want to hear about our latest deals first?</h3>
+        <p>Follow us on social media or get in touch — new clients and package bundles often qualify for special pricing.</p>
+        <div class="offer-callout__actions">
+          <a class="btn btn--primary" href="/contact">Contact Us</a>
+          <a class="btn btn--outline" href="<%= site.social.instagram %>" target="_blank" rel="noopener">Follow on Instagram</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <%- include('partials/cta') %>
+</main>
+<%- include('partials/footer') %>

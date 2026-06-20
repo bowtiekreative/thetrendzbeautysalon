@@ -1,0 +1,44 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+<main id="main">
+  <%- include('partials/page-hero', { heroLabel: 'Pricing', heroTitle: 'Competitive Pricing', heroImage: '1522-featured-image.png' }) %>
+
+  <section class="section">
+    <div class="container">
+      <div class="section__head">
+        <p class="eyebrow">Our Rates</p>
+        <h2>Transparent, Honest Pricing</h2>
+        <p class="section__lead">All prices in Canadian dollars (CAD). Save more with our multi-session packages.</p>
+      </div>
+
+      <div class="price-grid">
+        <% pricing.forEach(function(cat){ %>
+          <div class="price-card">
+            <h3 class="price-card__h"><%= cat.category %></h3>
+            <table class="price-table">
+              <caption class="sr-only"><%= cat.category %> prices</caption>
+              <tbody>
+                <% cat.items.forEach(function(it){ %>
+                  <tr><th scope="row"><%= it[0] %></th><td><%= it[1] %></td></tr>
+                <% }); %>
+              </tbody>
+            </table>
+          </div>
+        <% }); %>
+      </div>
+
+      <p class="price-note">Prices marked with “+” start from the listed amount and vary by area or treatment size. Contact us for a personalised quote.</p>
+    </div>
+  </section>
+
+  <section class="section section--muted" id="book">
+    <div class="container container--narrow">
+      <div class="section__head">
+        <p class="eyebrow">Appointment</p>
+        <h2>Book Appointment</h2>
+      </div>
+      <%- include('partials/booking-form') %>
+    </div>
+  </section>
+</main>
+<%- include('partials/footer') %>

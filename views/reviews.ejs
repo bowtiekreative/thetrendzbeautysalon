@@ -1,0 +1,26 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+<main id="main">
+  <%- include('partials/page-hero', { heroLabel: 'Reviews', heroTitle: 'Glowing Testimonials', heroImage: '337-about-2.png' }) %>
+
+  <section class="section">
+    <div class="container">
+      <div class="section__head">
+        <p class="eyebrow">What Our Clients Say</p>
+        <h2>Loved By Calgary</h2>
+      </div>
+      <div class="review-grid">
+        <% testimonials.forEach(function(t){ %>
+          <figure class="review">
+            <span class="review__quote"><%- include('partials/icon', { name: 'quote' }) %></span>
+            <blockquote><p><%= t.text %></p></blockquote>
+            <figcaption><strong><%= t.name %></strong><% if (t.service) { %><span><%= t.service %></span><% } %></figcaption>
+          </figure>
+        <% }); %>
+      </div>
+    </div>
+  </section>
+
+  <%- include('partials/cta', { ctaHeading: 'Become Our Next Happy Client.' }) %>
+</main>
+<%- include('partials/footer') %>

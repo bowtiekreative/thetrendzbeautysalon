@@ -1,93 +1,83 @@
-# The Trendz Beauty Salon — Brand Overview
+# The Trendz Beauty Salon
 
-## About
-The Trendz Beauty Salon is a Calgary-based beauty and wellness business operated by **Michellaine Tashina Helen Sleigh**, located in **Falconridge, Calgary, Alberta**. The salon offers a wide range of aesthetic and body sculpting services including permanent makeup, facials, waxing, fat freezing, microblading, lipo laser, cavitation, wood therapy, lymphatic drainage, and more. They also run **The Trendz Beauty Academy** offering online, blended, and 1:1 in-person training.
+A modern, fast, accessible rebuild of [thetrendzbeautysalon.com](https://thetrendzbeautysalon.com) —
+the original WordPress/Elementor site re-engineered as a server-rendered Node.js
+application. **Content is kept faithful to the original**; the stack is rebuilt
+for speed, SEO, accessibility, and easy self-service editing.
 
-## Business Info
-- **Email:** thetrendzsalon@gmail.com
-- **Phone:** 403-714-3439
-- **Location:** Falconridge, Calgary, Alberta
-- **Website:** https://thetrendzbeautysalon.com
-- **Social:** Facebook, Instagram (linked from site header)
+The Trendz Beauty Salon is a Calgary-based beauty & wellness studio operated by
+**Michellaine Tashina Helen Sleigh** in **Falconridge, Calgary, Alberta**,
+offering permanent makeup, facials, waxing, body sculpting, fat freezing,
+microblading, and more — plus **The Trendz Beauty Academy** training programs.
 
-## Brand Colors
+## Stack
 
-| Usage          | Color Name         | Hex/RGB                          |
-|----------------|--------------------|----------------------------------|
-| Primary Accent | Lavender/Pink      | `#BF73BA` / `rgb(191, 115, 186)` |
-| Dark Text      | Near Black         | `#343434` / `rgb(52, 52, 52)`    |
-| Light Text     | Medium Grey        | `#6A6560` / `rgb(106, 101, 96)`  |
-| Background     | White              | `#FFFFFF`                        |
-| Dark BG        | Charcoal           | `#2A2A2A` / `rgb(42, 42, 42)`   |
-| Header/Footer  | Dark Grey/Black    | `#272727` / `rgb(39, 39, 39)`    |
-| Body Text      | Dark Grey          | `#555555` / `rgb(85, 85, 85)`    |
-| Button Hover   | Rose/Pink          | `#FF6576` / `rgb(255, 101, 118)` |
+- **Express + EJS** — server-rendered HTML (great for SEO, fast, simple).
+- **MySQL via `mysql2`** — pure-JS driver (installs cleanly on restricted shared hosts; no native addons).
+- **`src/content.js`** — the single source of truth for all site content, seeded into MySQL on boot.
+- **Content API** (`/api`) — token-protected live editing without a redeploy.
+- **Helmet + compression + morgan** — security headers, gzip, request logging.
 
-## Fonts / Typography
+## Project layout
 
-| Usage              | Font Family                       | Type      |
-|--------------------|-----------------------------------|-----------|
-| Headings (serif)   | **Domine** (Google Font)          | Serif     |
-| Body / Navigation  | **Open Sans** (Google Font)       | Sans-Serif|
-| Navigation Menu    | **Rubik** (Google Font)           | Sans-Serif|
-| Buttons / UI       | **Rubik**                         | Sans-Serif|
-| Special (decorative)| **Tiro Devanagari Sanskrit**     | Serif     |
-| Fallback           | **Roboto**                        | Sans-Serif|
+```
+server.js            Express app — routes, SEO, JSON-LD, sitemap, resilient boot
+app.js               Hostinger fallback entrypoint (require server.js)
+src/
+  content.js         Single source of truth (verbatim site content)
+  db.js              MySQL pool + query helpers (localhost -> 127.0.0.1 fix)
+  schema.sql         Tables (InnoDB, utf8mb4)
+  seed.js            Version-gated seeding from content.js
+  data.js            Data access with graceful fallback to content.js
+  api.js             Token-protected content API
+views/               EJS templates + shared partials
+public/
+  css/styles.css     Design system (purple #BF73BA, Domine + Open Sans)
+  js/main.js         Nav, accessible sliders, FAQ accordion
+  images/            All media from the original site
+docs/                Content-API guide, brand overview, architecture, styles
+```
 
-- **Headings:** Domine, serif — conveys luxury and elegance
-- **Body text:** Open Sans / Rubik — modern, clean readability
-- **Navigation:** Uppercase, serif (Domine)
-- **Font sizes:** 13px (small labels), 14-16px (body), 20-30px (subheadings), 55px (hero headings)
+## Local development
 
-## Design System
+```bash
+npm install
+cp .env.example .env      # set DB + admin credentials
+npm run seed              # create tables + load content into MySQL
+npm run dev               # http://localhost:3000
+```
 
-### Layout
-- Full-width, single-page scroll sections with alternating dark/light backgrounds
-- Fixed header with sticky navigation (dark charcoal, ~272727)
-- Hero sections use full-width background images with dark overlays
-- Content max-width constrained via Bootstrap container classes
+The app is **resilient by design**: it binds the HTTP port first, then connects
+to MySQL with retries, and falls back to `src/content.js` if the DB is
+unavailable — so it never enters a 503 crash-loop. Check `/healthz` for DB
+status and content counts.
 
-### Navigation
-- 10-item horizontal menu: HOME, ABOUT, SERVICES, PRICING, COURSES, B&A CARE, OFFERS, PORTFOLIO, REVIEWS, CONTACT US
-- Active page highlighted in lavender (#BF73BA)
-- "BOOK NOW" CTA button in header (lavender background, dark text)
-- Social icons (Facebook, Instagram) in header
+## Editing content
 
-### Buttons
-- Primary: "BOOK NOW" — solid lavender (#BF73BA) with black text
-- Secondary: "READ MORE" — text link style with lavender color
-- "SCROLL" vertical text on hero left side
-- All buttons use Rubik font
+- **Bulk / structural changes** — edit `src/content.js`, bump `contentVersion`,
+  redeploy. The seeder re-applies on next boot.
+- **Live edits (no redeploy)** — use the [Content API](docs/CONTENT-API.md).
+  Once the API is used, the seeder stops overwriting live edits (`npm run seed`
+  forces a full reset).
 
-### Cards / Grids
-- Service cards: 3-column grid with image, title (Domine serif), description, "READ MORE >>" link
-- Pricing tables: two-column tables (Service | Price) grouped by category
-- Contact info cards: 3-column with lavender icon circles
-- Testimonials: carousel/slider (Owl Carousel)
+## What was improved
 
-### Animations
-- Animate.css integration for scroll-triggered animations
-- Owl Carousel for testimonial and gallery sliders
-- Font Awesome icons for social and UI elements
-- Motion effects (Elementor Pro Motion FX)
-- Magnific Popup for lightbox
+- ⚡ **Performance** — no WordPress/Elementor/jQuery bloat; server-rendered HTML, gzip, long-cached assets with mtime cache-busting.
+- 🔍 **SEO** — unique titles/descriptions per route, canonical + Open Graph + Twitter cards, JSON-LD (`HealthAndBeautyBusiness`, `BreadcrumbList`, `FAQPage`, `Service`), `robots.txt`, generated `sitemap.xml`.
+- ♿ **Accessibility (WCAG)** — semantic landmarks, skip link, visible focus outlines, zoom not disabled, carousels with Pause/Play controls honoring `prefers-reduced-motion`, ARIA on toggles, alt text.
+- 📱 **Responsive** — mobile-first, drawer nav, single-column grids, full-width buttons on small screens.
+- ✏️ **Self-service editing** — content API + version-gated seeding.
 
-### Footer
-- Dark background (#272727)
-- Logo with "T" icon + "TRENDZ BEAUTY" text
-- WPCode snippets for dynamic injection ([wpcode id="1775"], [wpcode id="1787"])
+## Deployment notes (Hostinger / shared hosts)
 
-### Theme
-- **Theme:** Termico (custom WordPress theme, v7.0)
-- **Page Builder:** Elementor (v4.1.3) + Elementor Pro (v4.1.1)
-- **Addons:** Happy Elementor Addons (v3.22.0)
+- Use `DB_HOST=127.0.0.1` (not `localhost`) — Node resolves `localhost` to IPv6 `::1` but the DB user is usually granted on IPv4. `db.js` rewrites this automatically.
+- Both `server.js` and `app.js` entrypoints are provided.
+- Static assets are long-cached with `?v=<mtime>` cache-busting, so deploys show up immediately.
+- A `Dockerfile` is included for containerized deploys.
 
-## Site Structure
-- Front page: static page (ID 409, "Home")
-- Blog page: separate (ID 1585)
-- 14 published pages total
-- 15 published posts (prep/post-care guides, policies, blog)
-- 16 services (custom post type)
-- 43 pricing items (custom post type)
-- 290 media attachments
-- 7 categories, 12 tags
+## Reference docs
+
+- [`docs/CONTENT-API.md`](docs/CONTENT-API.md) — live editing API
+- [`docs/BRAND-OVERVIEW.md`](docs/BRAND-OVERVIEW.md) — colors, fonts, business info
+- [`docs/architecture.md`](docs/architecture.md) — original WordPress structure
+- [`docs/styles.md`](docs/styles.md) — original CSS/brand analysis

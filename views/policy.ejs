@@ -1,0 +1,14 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+<main id="main">
+  <%- include('partials/page-hero', { heroLabel: 'Legal', heroTitle: title, heroImage: '1522-featured-image.png' }) %>
+
+  <section class="section">
+    <div class="container container--narrow">
+      <div class="prose prose--legal">
+        <% body.split(/\n\n+/).forEach(function(p){ if(p.trim()){ %><p><%= p.trim() %></p><% } }); %>
+      </div>
+    </div>
+  </section>
+</main>
+<%- include('partials/footer') %>

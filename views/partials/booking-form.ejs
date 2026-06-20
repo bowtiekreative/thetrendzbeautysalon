@@ -1,0 +1,46 @@
+<%
+/* Shared booking/contact form. Optional locals: services (array), sent (bool) */
+var svcList = (typeof services !== 'undefined' && services) ? services : null;
+%>
+<% if (typeof sent !== 'undefined' && sent) { %>
+  <div class="alert alert--success" role="status">
+    <strong>Thank you!</strong> Your message has been received. We'll be in touch shortly to confirm your appointment.
+  </div>
+<% } %>
+<form class="form" method="post" action="/contact">
+  <p class="form__hp" aria-hidden="true">
+    <label>Leave this field empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+  </p>
+  <div class="form__row">
+    <div class="field">
+      <label for="f-name">Your Name <span aria-hidden="true">*</span></label>
+      <input id="f-name" name="name" type="text" required autocomplete="name">
+    </div>
+    <div class="field">
+      <label for="f-email">Your Email <span aria-hidden="true">*</span></label>
+      <input id="f-email" name="email" type="email" required autocomplete="email">
+    </div>
+  </div>
+  <div class="form__row">
+    <div class="field">
+      <label for="f-phone">Your Phone <span aria-hidden="true">*</span></label>
+      <input id="f-phone" name="phone" type="tel" required autocomplete="tel">
+    </div>
+    <div class="field">
+      <label for="f-service">Service You Need</label>
+      <% if (svcList) { %>
+      <select id="f-service" name="service">
+        <option value="">Select a service…</option>
+        <% svcList.forEach(function(s){ %><option value="<%= s.title %>"><%= s.title %></option><% }); %>
+      </select>
+      <% } else { %>
+      <input id="f-service" name="service" type="text" placeholder="e.g. Microblading">
+      <% } %>
+    </div>
+  </div>
+  <div class="field">
+    <label for="f-message">Message</label>
+    <textarea id="f-message" name="message" rows="5"></textarea>
+  </div>
+  <button class="btn btn--primary btn--lg" type="submit">Get Appointment</button>
+</form>

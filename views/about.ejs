@@ -1,0 +1,41 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+<main id="main">
+  <%- include('partials/page-hero', { heroLabel: 'About Us', heroTitle: about.heading, heroImage: '337-about-2.png' }) %>
+
+  <section class="section">
+    <div class="container split">
+      <div class="split__media">
+        <div class="framed">
+          <img src="<%= img(about.ownerImage) %>" alt="Michellaine Sleigh, owner of The Trendz Beauty Salon" loading="lazy">
+        </div>
+      </div>
+      <div class="split__body">
+        <p class="eyebrow">The Trendz Beauty Salon</p>
+        <h2>Meet the Owner — <%= about.ownerName %></h2>
+        <p><%= about.ownerIntro %></p>
+        <ul class="ticks">
+          <% about.ownerBio.forEach(function(b){ %>
+            <li><%- include('partials/icon', { name: 'check' }) %><span><%= b %></span></li>
+          <% }); %>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--muted">
+    <div class="container mv">
+      <article class="mv__item">
+        <h2>Our Mission</h2>
+        <p><%= about.mission %></p>
+      </article>
+      <article class="mv__item">
+        <h2>Our Vision</h2>
+        <p><%= about.vision %></p>
+      </article>
+    </div>
+  </section>
+
+  <%- include('partials/cta', { ctaHeading: 'Discover Your True Beauty At Trendz Beauty Salon.', ctaImage: '1436-digitalstemcell_fitness_yogaa_fit_diverse_model_standing_upr.png' }) %>
+</main>
+<%- include('partials/footer') %>

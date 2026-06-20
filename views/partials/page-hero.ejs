@@ -1,0 +1,22 @@
+<%
+/* Compact inner-page hero with breadcrumb. Pass: heroLabel, heroTitle, heroImage (optional) */
+var bg = (typeof heroImage !== 'undefined' && heroImage) ? img(heroImage) : img(site.ogImage);
+%>
+<section class="page-hero" style="--hero-bg:url('<%= bg %>')">
+  <div class="page-hero__overlay"></div>
+  <div class="container page-hero__inner">
+    <% if (typeof heroLabel !== 'undefined' && heroLabel) { %><p class="eyebrow eyebrow--light"><%= heroLabel %></p><% } %>
+    <h1><%= heroTitle %></h1>
+    <% if (typeof breadcrumbs !== 'undefined' && breadcrumbs) { %>
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <ol>
+        <% breadcrumbs.forEach(function(b, i){ %>
+          <li<%= i === breadcrumbs.length - 1 ? ' aria-current="page"' : '' %>>
+            <% if (i < breadcrumbs.length - 1) { %><a href="<%= b.href %>"><%= b.name %></a><% } else { %><span><%= b.name %></span><% } %>
+          </li>
+        <% }); %>
+      </ol>
+    </nav>
+    <% } %>
+  </div>
+</section>

@@ -1,0 +1,33 @@
+<header class="site-header" id="site-header">
+  <div class="topbar">
+    <div class="container topbar__inner">
+      <a class="topbar__item" href="tel:<%= site.phoneHref %>"><%- include('icon', { name: 'phone' }) %><span><%= site.phone %></span></a>
+      <a class="topbar__item" href="mailto:<%= site.email %>"><%- include('icon', { name: 'mail' }) %><span><%= site.email %></span></a>
+      <span class="topbar__item topbar__item--loc"><%- include('icon', { name: 'pin' }) %><span><%= site.location %></span></span>
+      <span class="topbar__social">
+        <a href="<%= site.social.facebook %>" aria-label="Facebook" target="_blank" rel="noopener"><%- include('icon', { name: 'facebook' }) %></a>
+        <a href="<%= site.social.instagram %>" aria-label="Instagram" target="_blank" rel="noopener"><%- include('icon', { name: 'instagram' }) %></a>
+      </span>
+    </div>
+  </div>
+
+  <nav class="navbar" aria-label="Primary">
+    <div class="container navbar__inner">
+      <a class="brand" href="/">
+        <img class="brand__mark" src="<%= img(site.logoMark) %>" alt="" width="44" height="44">
+        <span class="brand__text"><span class="brand__name">Trendz</span><span class="brand__sub">Beauty Salon</span></span>
+      </a>
+
+      <button class="nav-toggle" aria-expanded="false" aria-controls="primary-menu" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="menu" id="primary-menu">
+        <% nav.forEach(function(item){ %>
+          <li><a href="<%= item.href %>" class="<%= (path === item.href || (item.href !== '/' && path.indexOf(item.href) === 0)) ? 'is-active' : '' %>"><%= item.label %></a></li>
+        <% }); %>
+        <li class="menu__cta"><a class="btn btn--primary" href="/contact">Book Now</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>

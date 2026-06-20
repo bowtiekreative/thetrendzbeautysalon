@@ -1,0 +1,24 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+<main id="main">
+  <%- include('partials/page-hero', { heroLabel: 'Before & After Care', heroTitle: guide.title, heroImage: '1834-1-16.png' }) %>
+
+  <section class="section">
+    <div class="container container--narrow">
+      <div class="prose">
+        <ul class="ticks ticks--lg">
+          <% guide.bullets.forEach(function(b){ %>
+            <li><%- include('partials/icon', { name: 'check' }) %><span><%= b %></span></li>
+          <% }); %>
+        </ul>
+      </div>
+      <div class="detail__actions">
+        <a class="btn btn--primary" href="/contact">Book an Appointment</a>
+        <a class="btn btn--outline" href="/before-after-care">All Care Guides</a>
+      </div>
+    </div>
+  </section>
+
+  <%- include('partials/cta') %>
+</main>
+<%- include('partials/footer') %>

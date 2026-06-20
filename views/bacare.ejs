@@ -1,0 +1,29 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+<main id="main">
+  <%- include('partials/page-hero', { heroLabel: 'B&A Care', heroTitle: 'Before & After Care', heroImage: '1834-1-16.png' }) %>
+
+  <section class="section">
+    <div class="container">
+      <div class="section__head">
+        <p class="eyebrow">Treatment Guides</p>
+        <h2>Prepare &amp; Recover With Confidence</h2>
+        <p class="section__lead">Follow these preparation and aftercare instructions to get the best, longest-lasting results from your treatment.</p>
+      </div>
+      <div class="guide-grid">
+        <% guides.forEach(function(g){ %>
+          <article class="guide-card">
+            <h3><a href="/before-after-care/<%= g.slug %>"><%= g.title %></a></h3>
+            <ul class="guide-card__list">
+              <% g.bullets.slice(0,3).forEach(function(b){ %><li><%- include('partials/icon', { name: 'check' }) %><span><%= b %></span></li><% }); %>
+            </ul>
+            <a class="link-arrow" href="/before-after-care/<%= g.slug %>">Read full guide <%- include('partials/icon', { name: 'arrow' }) %></a>
+          </article>
+        <% }); %>
+      </div>
+    </div>
+  </section>
+
+  <%- include('partials/cta') %>
+</main>
+<%- include('partials/footer') %>

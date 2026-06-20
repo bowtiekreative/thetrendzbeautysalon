@@ -1,0 +1,33 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+<main id="main">
+  <%- include('partials/page-hero', { heroLabel: 'Services', heroTitle: 'Revitalize & Rejuvenate', heroImage: '1834-1-16.png' }) %>
+
+  <section class="section">
+    <div class="container">
+      <div class="section__head">
+        <p class="eyebrow">What We Offer</p>
+        <h2>Our Treatments</h2>
+        <p class="section__lead">From permanent makeup and facials to body sculpting and fat freezing — explore the full range of services at The Trendz Beauty Salon.</p>
+      </div>
+      <div class="cards">
+        <% services.forEach(function(s){ %>
+          <article class="card">
+            <a class="card__media" href="/services/<%= s.slug %>">
+              <img src="<%= img(s.image) %>" alt="<%= s.title %>" loading="lazy">
+              <% if (s.priceFrom) { %><span class="card__badge">From <%= s.priceFrom %></span><% } %>
+            </a>
+            <div class="card__body">
+              <h3><a href="/services/<%= s.slug %>"><%= s.title %></a></h3>
+              <p><%= s.excerpt %></p>
+              <a class="link-arrow" href="/services/<%= s.slug %>">Read More <%- include('partials/icon', { name: 'arrow' }) %></a>
+            </div>
+          </article>
+        <% }); %>
+      </div>
+    </div>
+  </section>
+
+  <%- include('partials/cta') %>
+</main>
+<%- include('partials/footer') %>

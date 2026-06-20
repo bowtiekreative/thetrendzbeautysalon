@@ -1,0 +1,51 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+<main id="main">
+  <%- include('partials/page-hero', { heroLabel: 'The Trendz Beauty Academy', heroTitle: academy.heading, heroImage: '1418-digitalstemcell_microblading_capture_a_close-up_of_a_diverse.png' }) %>
+
+  <section class="section">
+    <div class="container split">
+      <div class="split__media">
+        <div class="framed">
+          <img src="<%= img(academy.educatorImage) %>" alt="<%= academy.educatorName %>, educator at The Trendz Beauty Academy" loading="lazy">
+        </div>
+      </div>
+      <div class="split__body">
+        <p class="eyebrow">Meet the Educator</p>
+        <h2><%= academy.educatorName %></h2>
+        <p><%= academy.educatorBio %></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--muted">
+    <div class="container">
+      <div class="section__head">
+        <p class="eyebrow">Programs Offered</p>
+        <h2>Train With The Trendz Beauty Academy</h2>
+        <p class="section__lead">Choose your path and learn from a certified instructor with 30+ industry certifications.</p>
+      </div>
+      <div class="program-grid">
+        <% academy.programs.forEach(function(p){ %>
+          <article class="program">
+            <span class="program__icon"><%- include('partials/icon', { name: 'star' }) %></span>
+            <h3><%= p %></h3>
+          </article>
+        <% }); %>
+      </div>
+
+      <div class="options">
+        <h3 class="options__h">Training Options</h3>
+        <ul class="pills">
+          <% academy.options.forEach(function(o){ %><li class="pill"><%= o %></li><% }); %>
+        </ul>
+      </div>
+      <div class="section__foot">
+        <a class="btn btn--primary btn--lg" href="/contact">Enquire About Courses</a>
+      </div>
+    </div>
+  </section>
+
+  <%- include('partials/cta', { ctaHeading: 'Start Your Beauty Career With The Trendz Beauty Academy.' }) %>
+</main>
+<%- include('partials/footer') %>

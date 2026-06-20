@@ -1,0 +1,15 @@
+<%
+/* Full-width CTA banner. Pass: ctaHeading, ctaImage (optional) */
+var cbg = (typeof ctaImage !== 'undefined' && ctaImage) ? img(ctaImage) : img(site.ogImage);
+%>
+<section class="cta-banner" style="--cta-bg:url('<%= cbg %>')">
+  <div class="cta-banner__overlay"></div>
+  <div class="container cta-banner__inner">
+    <p class="eyebrow eyebrow--light">Your One-Stop Beauty Destination</p>
+    <h2><%= typeof ctaHeading !== 'undefined' ? ctaHeading : 'Discover Your True Beauty At Trendz Beauty Salon.' %></h2>
+    <div class="cta-banner__actions">
+      <a class="btn btn--primary btn--lg" href="/contact">Book Now</a>
+      <a class="btn btn--ghost btn--lg" href="tel:<%= site.phoneHref %>">Call <%= site.phone %></a>
+    </div>
+  </div>
+</section>
